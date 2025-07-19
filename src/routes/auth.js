@@ -5,7 +5,11 @@ const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 
 const authRouter = express.Router();
+<<<<<<< HEAD
 //signup api
+=======
+//signu api
+>>>>>>> b5428f484474c97b49c7d023e3e0b3d64093230c
 authRouter.post("/signup", async(req,res)=>{
 
     try{
@@ -66,7 +70,11 @@ authRouter.post("/logout",async(req,res)=>{
       res.cookie("token", null,{
     expires: new Date(Date.now()),
       });
+<<<<<<< HEAD
       res.send("log out successfully"); 
+=======
+      res.send("log out successfully");
+>>>>>>> b5428f484474c97b49c7d023e3e0b3d64093230c
 });
 
 

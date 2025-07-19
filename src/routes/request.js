@@ -73,12 +73,23 @@ requestRouter.post("/request/review/:status/:requestId",userAuth,async(req,res)=
        
       };
 
+<<<<<<< HEAD
+=======
+
+
+        console.log("loggedInUser:", loggedInUser._id);
+        console.log("requestId:",requestId);
+>>>>>>> b5428f484474c97b49c7d023e3e0b3d64093230c
       const connectionRequest = await ConnectionRequest.findOne({
          _id: requestId,
          toUserId:loggedInUser._id,
          status:"interested"
       });
+<<<<<<< HEAD
 
+=======
+console.log("Full request object from DB:", connectionRequest);
+>>>>>>> b5428f484474c97b49c7d023e3e0b3d64093230c
       if(!connectionRequest){
          return res.status(400).json({message:"connection request not found"})
       };
