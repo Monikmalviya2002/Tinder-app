@@ -2,8 +2,10 @@ const express = require("express");
 const connectDB = require("./config/database");``
 const app = express();
 const cookieParser = require("cookie-parser");
+const cors = require ("cors");
 
-//to handle cors errro
+//to solve cors error
+app.use(cors())
 //to read the json data from user
 app.use(express.json());
 //to read the cookie

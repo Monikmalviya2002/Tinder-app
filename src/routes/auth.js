@@ -53,7 +53,7 @@ authRouter.post("/login", async(req,res)=>{
         //adding token to the cookies
 
         res.cookie("token", token);
-        res.send("Login Successfully");
+        res.send(user);
      }
      else{
         throw new Error("invalide emailId and password")
