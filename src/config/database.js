@@ -1,8 +1,20 @@
 const mongoose = require("mongoose");
 
-async function connectDB() {
-     await mongoose.connect("mongodb+srv://monikmalviya2:knObj0x9qHuikiYi@monik04.vyrcayb.mongodb.net/devTinder");
-};
-    
-  module.exports = connectDB;
+const connectDB = async () => {
+  const dbURL = process.env.DB_CONNECTION_STRING;
 
+  if (!dbURL) {
+    console.error("❌ DB_CONNECTION_STRING is undefined");
+    return;
+  }
+
+  try {
+    await mongoose.connect(dbURL);
+     
+    console.log("✅ MongoDB connected");
+  } catch (error) {
+    throw error; // Let the calling code catch and log it
+  }
+};
+
+module.exports = connectDB;

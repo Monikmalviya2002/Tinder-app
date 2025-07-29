@@ -19,6 +19,12 @@ authRouter.post("/signup", async(req,res)=>{
     const{ firstName ,lastName ,emailId,password} = req.body;
     const passwordHash = await bcrypt.hash(password,10);
 
+    const existingUser = await User.findOne({ emailId });
+   if (existingUser) {
+    return res.status(400).json({ error: "Email already registered" });
+     }
+
+
 
      const user = new User({
         firstName,
@@ -26,11 +32,15 @@ authRouter.post("/signup", async(req,res)=>{
         emailId,
         password: passwordHash,
      });
-     await user.save();
-  res.send("user added succesfully");
-}catch(err){
-        res.status(400).send("ERROR:" + err.message);
-};
+      const savedUser=  await user.save();
+    const token = await jwt.sign({_id: user._id}, "Monik@2002")
+
+        res.cookie("token", token);
+
+       res.json({ message: "User Added Successfully", data: savedUser });
+    }catch(err){
+        res.status(400).send("ERROR: " + err.message);
+     };
    
 
 
