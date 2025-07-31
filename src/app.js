@@ -5,7 +5,8 @@ const app = express();
 const cookieParser = require("cookie-parser");
 const cors = require ("cors");
 require("dotenv").config();
-
+const http = require("http");
+const initializeSocket = require("./utils/socket");
 
 
 //to solve cors error
@@ -27,20 +28,26 @@ const authRouter = require("./routes/auth");
 const profileRouter = require("./routes/profile");
 const requestRouter = require("./routes/request");
 const userRouter = require("./routes/user");
+const chatRouter = require("./routes/chat");
+
+const initializeSockett = require("./utils/socket");
+
 
 app.use("/",authRouter);
 app.use("/",profileRouter);
 app.use("/request",requestRouter);
 app.use("/",userRouter)
+app.use("/",chatRouter)
 
-
+const server = http.createServer(app);
+initializeSocket(server);
 
 connectDB()
 .then(()=>{
     console.log(" DATABSE connection is succesfull");
     
 
-app.listen(process.env.PORT,'0.0.0.0', ()=>{
+server.listen(process.env.PORT,'0.0.0.0', ()=>{
    console.log("server is active");
 });
 })
